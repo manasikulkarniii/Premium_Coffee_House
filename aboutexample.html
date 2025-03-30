@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Premium Coffee House</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+
+/* Navbar Styling */
+.navbar {
+    padding: 10px 20px;
+}
+
+/* Space between Logo & Home */
+.navbar-brand {
+    margin-right: 30px;
+}
+
+/* Navbar Links Styling */
+.navbar-nav .nav-item {
+    margin: 0 10px; /* Space between buttons */
+}
+
+/* Hover Effect for Navbar Links */
+.navbar-nav .nav-link {
+    position: relative;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 15px;
+}
+
+/* Underline Animation */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #6f4e37; /* Chocolate Brown */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.navbar-nav .nav-link:hover {
+    color: #6f4e37 !important;
+    transform: scale(1.1);
+    background: rgba(111, 78, 55, 0.2); /* Light Brown Tint */
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Dropdown Styling */
+/* Navbar Dropdown Styling */
+.navbar .dropdown-menu {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgb(186, 153, 109); /* Soft Yellow with Transparency */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+    display: block;
+    visibility: hidden;
+}
+
+/* Show Dropdown on Hover */
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Dropdown Hover Effect */
+.navbar .dropdown-menu .dropdown-item {
+    padding: 12px 18px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+/* Dropdown Item Hover - Fancy Glass Effect */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background: rgba(111, 78, 55, 0.7); /* Chocolate Brown with Transparency */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Search Button Styling */
+.navbar .btn-outline-success {
+    border-color: #6f4e37;
+    color: #6f4e37;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Search Button Hover Effect */
+.navbar .btn-outline-success:hover {
+    background: #6f4e37;
+    color: white;
+    border-color: #6f4e37;
+    transform: scale(1.05);
+}
+
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5e1da;
+            color: #3e2723;
+        }
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: rgba(255, 247, 240, 0.9);
+            padding: 60px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 2;
+        }
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1523942839745-7848c839b661') center/cover;
+            opacity: 0.2;
+            z-index: 1;
+        }
+        h1, h2 {
+            color: #5d4037;
+        }
+        p {
+            font-size: 1.2em;
+            line-height: 1.8;
+        }
+        .image {
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            display: block;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+            transition: transform 0.5s ease-in-out, opacity 1s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        .image:hover {
+            transform: scale(1.1);
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 1.5s forwards;
+        }
+        .slide-in {
+            opacity: 0;
+            transform: translateX(-30px);
+            animation: slideIn 1.5s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+/* Footer Styling */
+.footer {
+    background: #2c2c2c;
+    color: white;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+/* Footer Columns */
+.footer-column {
+    flex: 1;
+    margin: 15px;
+    min-width: 250px;
+}
+
+.footer-column h3 {
+    color: #ffcc00;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.social-icons a {
+    color: white;
+    font-size: 22px;
+    margin: 0 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
+}
+
+/* Newsletter Subscription */
+.subscribe-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+    font-size: 13px;
+}
+
+
+
+
+
+    </style>
+</head>
+<body>
+<!-- Navigation-bar -->
+<nav class="navbar navbar-expand-lg " style="background-color: #a3836c;">
+    <div class="container-fluid">
+      <img src="https://files.oaiusercontent.com/file-Ax7ApESRNurzgKaeE1XWWK?se=2025-03-22T14%3A09%3A20Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D53395aae-b82c-4b67-b206-ae6d100c7789.webp&sig=ia4KHOt3Y0r2rL4Fk9cR/dRoeZKAwl3AX4p3EzAEm6A%3D " height="50px">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="Homepage.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Addtocartex.html">Menu</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Discover more
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="aboutexample.html">About us</a></li>
+              <li><a class="dropdown-item" href="contactpage.html">Contact us</a></li>
+              <li><a class="dropdown-item" href="gallerypage.html">Gallery</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+
+
+        <div class="d-flex align-items-center">
+            <form class="d-flex me-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+            <!-- 🛒 Cart Button -->
+            <button class="btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas" style="background-color: #5a4231;">
+                🛒 <span id="cartCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
+            </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+<!-- Aboutus -->
+    <section class="section" style="background: url('https://www.baristainstitute.com/sites/default/files/styles/blog_hero_image/public/2020-03/coffee-beans-cup.jpg') center/cover; color: white;">
+        <div class="background-image"></div>
+        <div class="container fade-in">
+            <h1>☕ Welcome to Premium Coffee House ☕</h1>
+            <p style="font-weight: bold; font-size: 1.3em; color: #4a2e1f; text-shadow: 1px 1px 3px rgba(0,0,0,0.2);">Your perfect spot to relax, sip, and enjoy the aroma of freshly brewed coffee.</p>
+            <img src="https://images.pexels.com/photos/1307698/pexels-photo-1307698.jpeg?cs=srgb&dl=pexels-igor-starkov-233202-1307698.jpg&fm=jpg" alt="Coffee Shop" class="image">
+        </div>
+    </section>
+    
+    <section class="section">
+        <div class="background-image"></div>
+        <div class="container slide-in">
+            <h2>📜 Our Story</h2>
+            <p>At Premium Coffee House, we believe coffee is more than just a drink—it's an experience. Our journey began with a vision to create a cozy, welcoming café where every sip tells a story. We carefully source the finest beans, ensuring each cup is rich in flavor and crafted with passion.</p>
+            <img src="https://kernigkrafts.com/wp-content/uploads/2019/05/cafe-coffee-design-tasty.jpg" alt="Coffee Beans" class="image">
+        </div>
+    </section>
+    
+    <section class="section" style="background: #ffebcd;">
+        <div class="background-image"></div>
+        <div class="container fade-in">
+            <h2>🌟 Why Choose Us?</h2>
+            <ul style="list-style: none; padding: 0; color: #3e2723;">
+                <li><i class="fas fa-mug-hot"></i> Finest quality coffee beans, freshly brewed to perfection</li>
+                <li><i class="fas fa-seedling"></i> 100% organic and ethically sourced ingredients</li>
+                <li><i class="fas fa-heart"></i> A warm and inviting ambiance to make you feel at home</li>
+                <li><i class="fas fa-users"></i> Friendly, skilled baristas dedicated to crafting your perfect cup</li>
+            </ul>
+            <img src="https://assets.architecturaldigest.in/photos/66857a1ecb1ae9232c223165/16:9/w_2560%2Cc_limit/Untitled%2520design%2520-%25202024-07-03T214934.097.png" alt="Coffee Mug" class="image">
+        </div>
+    </section>
+
+
+<!-- footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Column 1: About -->
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p>Premium Coffee House has been serving the finest coffee since 2012. Enjoy our cozy ambiance, quality beverages, and delicious meals every day.</p>
+        </div>
+
+        <!-- Column 2: Contact -->
+        <div class="footer-column">
+            <h3>Contact Us</h3>
+            <p>Email: contact@premiumcoffee.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: Pune, India</p>
+        </div>
+
+        <!-- Column 3: Social Media -->
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <!-- Newsletter -->
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Enter your email" class="subscribe-input">
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>© 2025 Premium Coffee House. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+
+
+
+
+</body>
+</html>

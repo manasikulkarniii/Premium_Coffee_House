@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Food Menu with Cart</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs/qrcode.min.js"></script> <!-- QR Code Library -->
+<style type="text/css">
+    .card:hover{
+        border:2px groove gray;
+    }
+
+/* Navbar Styling */
+.navbar {
+    padding: 10px 20px;
+}
+
+/* Space between Logo & Home */
+.navbar-brand {
+    margin-right: 30px;
+}
+
+/* Navbar Links Styling */
+.navbar-nav .nav-item {
+    margin: 0 10px; /* Space between buttons */
+}
+
+/* Hover Effect for Navbar Links */
+.navbar-nav .nav-link {
+    position: relative;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 15px;
+}
+
+/* Underline Animation */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #6f4e37; /* Chocolate Brown */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.navbar-nav .nav-link:hover {
+    color: #6f4e37 !important;
+    transform: scale(1.1);
+    background: rgba(111, 78, 55, 0.2); /* Light Brown Tint */
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Dropdown Styling */
+/* Navbar Dropdown Styling */
+.navbar .dropdown-menu {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgb(186, 153, 109); /* Soft Yellow with Transparency */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+    display: block;
+    visibility: hidden;
+}
+
+/* Show Dropdown on Hover */
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Dropdown Hover Effect */
+.navbar .dropdown-menu .dropdown-item {
+    padding: 12px 18px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+/* Dropdown Item Hover - Fancy Glass Effect */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background: rgba(111, 78, 55, 0.7); /* Chocolate Brown with Transparency */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Search Button Styling */
+.navbar .btn-outline-success {
+    border-color: #6f4e37;
+    color: #6f4e37;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Search Button Hover Effect */
+.navbar .btn-outline-success:hover {
+    background: #6f4e37;
+    color: white;
+    border-color: #6f4e37;
+    transform: scale(1.05);
+}
+
+
+/* 🌟 General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f4e5;
+    color: #5a4231;
+}
+
+
+/* Premium Coffee House - Food Menu Styling */
+body {
+    background: url('https://www.transparenttextures.com/patterns/food.png'); /* Transparent food texture */
+    background-color: rgba(250, 235, 215, 0.8); /* Light cream overlay */
+    font-family: 'Poppins', sans-serif;
+}
+
+.container {
+    padding: 20px;
+}
+
+h2 {
+    color: #5a4231;
+    font-weight: bold;
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    transition: opacity 0.3s;
+}
+
+.card:hover .card-img-top {
+    opacity: 0.85;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #5a4231;
+    font-weight: bold;
+}
+
+.card-text {
+    font-size: 1rem;
+    color: #3d2b1f;
+    min-height: 60px;
+}
+
+.fw-bold {
+    font-size: 1.2rem;
+    color: #8b5a2b;
+    font-weight: bold;
+}
+
+.btn.add-to-cart {
+    background-color: #8b5a2b;
+    color: white;
+    font-weight: bold;
+    border-radius: 8px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.btn.add-to-cart:hover {
+    background-color: #6b3e1e;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.row.align-items-start .col {
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Footer Styling */
+.footer {
+    background: #2c2c2c;
+    color: white;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+/* Footer Columns */
+.footer-column {
+    flex: 1;
+    margin: 15px;
+    min-width: 250px;
+}
+
+.footer-column h3 {
+    color: #ffcc00;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.social-icons a {
+    color: white;
+    font-size: 22px;
+    margin: 0 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
+}
+
+/* Newsletter Subscription */
+.subscribe-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+    font-size: 13px;
+}
+
+
+.cart-bg {
+        background: url('https://images.unsplash.com/photo-1511920170033-f8396924c348') center/cover no-repeat;
+        opacity: 0.85;
+    }
+
+
+
+
+
+
+
+</style>
+
+
+
+</head>
+<body>
+<!-- Navigation-bar -->
+<nav class="navbar navbar-expand-lg " style="background-color: #a3836c;">
+    <div class="container-fluid">
+      <img src="https://files.oaiusercontent.com/file-Ax7ApESRNurzgKaeE1XWWK?se=2025-03-22T14%3A09%3A20Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D53395aae-b82c-4b67-b206-ae6d100c7789.webp&sig=ia4KHOt3Y0r2rL4Fk9cR/dRoeZKAwl3AX4p3EzAEm6A%3D " height="50px">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="Homepage.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Addtocartex.html">Menu</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Discover more
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="aboutexample.html">About us</a></li>
+              <li><a class="dropdown-item" href="contactpage.html">Contact us</a></li>
+              <li><a class="dropdown-item" href="gallerypage.html">Gallery</a></li>
+            </ul>
+          </li>
+          
+        </ul>
+        <div class="d-flex align-items-center">
+            <form class="d-flex me-2" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+
+            <!-- 🛒 Cart Button -->
+            <button class="btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas" style="background-color: #5a4231;">
+                🛒 <span id="cartCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
+            </button>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+
+
+
+
+
+<br>
+<br>
+
+<!-- 🍽️ Food Menu -->
+<div class="container text-center mt-3">
+    <div class="row align-items-start">
+
+      <b><h2 style="text-align:center;font-family: papyrus;position:relative;bottom: 20px;">All day breakfast</h2></b>  
+        <!-- 🥚 Food Item Card -->
+       
+        <div class="col">
+            <div class="card" style="width: 18rem; height: 26.5rem;">
+                <img src="https://popmenucloud.com/cdn-cgi/image/width%3D1200%2Cheight%3D1200%2Cfit%3Dscale-down%2Cformat%3Dauto%2Cquality%3D60/bnpfaylu/d155a9bb-b5bd-4ff4-b1d3-b41980d3b473.jpg" class="card-img-top" alt="Eggs" height="200px" width="200px">
+                <div class="card-body">
+                    <h5 class="card-title">EGGS STYLE</h5>
+                    <p class="card-text">Fried eggs, scrambled, or omelette with multigrain bread.</p>
+                    <p class="fw-bold">Rs.250.00</p>
+                    <button class="btn add-to-cart" data-name="Two Eggs" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+       
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+        <img src="https://ketogenic.com/wp-content/uploads/2022/02/Greek-omelet-with-tomato-and-feta-700x512.png" class="card-img-top" height="190px" width="190px">
+        <div class="card-body">
+          <h5 class="card-title">GREEK OMELETTE</h5>
+          <p class="card-text">spinach, feta cheese, sliced multigrain bread, strawberry jam.</p>
+          <p class="fw-bold">Rs.200.00</p>
+                    <button class="btn  add-to-cart" data-name="GREEK OMELETTE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+        </div>
+      </div>
+          </div>
+
+
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+        <img src="https://weekendatthecottage.com/wp-content/uploads/2016/10/AvocadoToast5.jpg" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">AVOCADO TOAST</h5>
+          <p class="card-text">multigrain bread, mashed avocado, red pepper ﬂakes, olive oil.</p>
+          <p class="fw-bold">Rs.250.00</p>
+          <button class="btn  add-to-cart" data-name="AVOCADO TOAST" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+        </div>
+      </div>
+          </div>
+        
+     
+          <div class="col">
+            <div class="card" style="width: 18rem;">
+        <img src="https://www.ocado.com/cmscontent/recipe_image_large/31330051.jpg?aNlS" class="card-img-top" height="190px" width="190px">
+        <div class="card-body">
+          <h5 class="card-title">TUNA TOAST</h5>
+          <p class="card-text">multigrain bread, ahi tuna*, mashed avocado, arugula, sesame seeds.</p>
+          <p class="fw-bold">Rs.200.00</p>
+          <button class="btn add-to-cart" data-name="TUNA TOAST" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+        </div>
+      </div>
+          </div>
+
+  </div>
+</div>
+   
+<br>
+<br>
+<br>
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="card" style="width: 18rem;">
+  <img src="https://cookingwithbry.com/wp-content/uploads/Smoked-Salmon-Bagel-with-Lemon-Capers-Cream-Cheese-720x720.jpg?_t=1717832369" class="card-img-top" height="190px" width="190px">
+  <div class="card-body">
+    <h5 class="card-title">SALMON BAGEL</h5>
+    <p class="card-text">sesame bagel, smoked salmon*, dill cream cheese, onions, tomato.</p>
+    <p class="fw-bold">Rs.300.00</p>
+    <button class="btn add-to-cart" data-name="SALMON BAGEL" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+  </div>
+</div>
+    </div>
+
+
+    <div class="col">
+        <div class="card" style="width: 18rem; height: 26.6rem;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSpvqd0SXvaEHb-RDCH3pYtzcSSy6T8DkJrTw&s" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">CHOCO PANCAKES</h5>
+      <p class="card-text">banana, almonds, maple syrup,chocolate syrup , honey.</p>
+      <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="CHOCO PANCAKES" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;">
+    <img src="https://foodbyayaka.com/wp-content/uploads/2024/01/Coconut-Berry-Acai-Bowls-1024x897.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">ACAI BOWL</h5>
+      <p class="card-text">granola, coconut flakes, blueberry, banana, strawberry, almonds.</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="ACAI BOWL" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26.5rem;">
+    <img src="https://spicecravings.com/wp-content/uploads/2023/09/Greek-Yogurt-Parfait-Featured.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">GREEK YOGURT</h5>
+      <p class="card-text">strawberry, banana, blueberry, granola, mountain honey</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="GREEK YOGURT" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+<br>
+<hr style="color: #5a4231; border: 2px groove rgb(46, 30, 10);">
+<br>
+<br>
+
+<h2 style="text-align:center;font-family: papyrus;position:relative;bottom: 50px;font-size: 30px;">COFFEES & TEA</h2></b>
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="card" style="width: 18rem;height: 26rem;">
+  <img src="https://cdn.rizopouloscoffee.gr/www/rizopoulos-coffee-espresso.jpg" class="card-img-top" height="190px" width="190px">
+  <div class="card-body">
+    <h5 class="card-title">ESPRESSO</h5>
+    <p class="card-text">1 Shot $3.50 | 2 Shot $4.50</p>
+    <p class="fw-bold">Rs.300.00</p>
+      <button class="btn add-to-cart" data-name="ESPRESSO" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+  </div>
+</div>
+    </div>
+
+    <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://www.foodandwine.com/thmb/CCe2JUHfjCQ44L0YTbCu97ukUzA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Partners-Latte-FT-BLOG0523-09569880de524fe487831d95184495cc.jpg" class="card-img-top" alt="...">
+    <div class="card-body">
+      <h5 class="card-title">LATTE</h5>
+      <p class="card-text">1 Shot $4.75 | 2 Shots $5.75 | 3 Shots $6.75</p>
+      <p class="fw-bold">Rs.300.00</p>
+      <button class="btn add-to-cart" data-name="LATTE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://shottbeverages.com/wp-content/uploads/2019/05/Peppermint-Matcha-Latte-962x641.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">Matcha Latte</h5>
+      <p class="card-text">2 shots $5.25 | 3 shots $5.75</p>
+      <p class="fw-bold">Rs.300.00</p>
+      <button class="btn add-to-cart" data-name="Matcha Latte" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://dairyfarmersofcanada.ca/sites/default/files/styles/recipe_image/public/image_file_browser/conso_recipe/2022/Capuccino.jpg.jpeg?itok=J1pWPwe2" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">CAPPUCCINO</h5>
+      <p class="card-text">1 Shot $4.75 | 2 Shots $5.75 | 3 Shots $6.75</p>
+      <p class="fw-bold">Rs.300.00</p>
+      <button class="btn add-to-cart" data-name="CAPPUCCINO" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://www.simplyrecipes.com/thmb/t9ZeQC3Nb2YUoQTnxUJrjJbnKEA=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Simply-Recipes-Cold-Brew-Coffee-LEAD-16-428691bcdd594281b2f5dc6dbc8235e4.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">ICED COFFEE</h5>
+      <p class="card-text">16oz $4.50 | 24oz $5.75</p>
+      <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="ICED COFFEE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+      <img src="https://131462261.cdn6.editmysite.com/uploads/1/3/1/4/131462261/s331009370453878951_p382_i2_w1200.jpeg" class="card-img-top" height="190px" width="190px">
+      <div class="card-body">
+        <h5 class="card-title">Iced Matcha Latte</h5>
+        <p class="card-text">2 shots $5.25 | 3 shots $5.75</p>
+        <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="Iced Matcha Latte" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+      </div>
+    </div>
+        </div>
+
+        <div class="col">
+            <div class="card" style="width: 18rem;height: 26rem;">
+        <img src="https://static.vecteezy.com/system/resources/previews/039/625/442/non_2x/ai-generated-ice-coffee-glass-cool-cappuccino-latte-flat-white-americano-with-milk-iced-refreshing-drink-cold-caffeine-beverage-photo.jpg" class="card-img-top" height="190px" width="190px">
+        <div class="card-body">
+          <h5 class="card-title">ICED CAPPUCCINO</h5>
+          <p class="card-text">16oz $5.75 | 24oz $6.75</p>
+          <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="ICED CAPPUCCINO" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+        </div>
+      </div>
+          </div>
+
+          <div class="col">
+            <div class="card" style="width: 18rem;height: 26rem;">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3fCVgNKHRQDOx6k839LWpgMo970tFwuC3Vg&s" class="card-img-top" height="190px" width="190px">
+          <div class="card-body">
+            <h5 class="card-title">ICED CHOCOLATE</h5>
+            <p class="card-text">16oz $5.00 | 24oz $5.75</p>
+            <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="ICED CHOCOLATE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+          </div>
+        </div>
+            </div>
+          </div>
+        </div>
+
+        <br>
+        <hr style="color: #5a4231; border: 2px groove rgb(46, 30, 10);">
+        <br>
+        <br>
+
+        <h2 style="text-align:center;font-family: papyrus;position:relative;bottom: 50px;font-size: 30px;">SMOOTHIES & POWER DRINKS</h2></b>
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="card" style="width: 18rem;height: 26rem;">
+  <img src="powerdrink.WEBP" class="card-img-top" height="190px" width="190px">
+  <div class="card-body">
+    <h5 class="card-title">RED WHITE & BLUE</h5>
+    <p class="card-text">coconut water, strawberry, banana, blueberry</p>
+    <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="RED WHITE & BLUE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+  </div>
+</div>
+    </div>
+
+    <div class="col">
+        <div class="card" style="width: 18rem; height: 26rem;">
+    <img src="vacation.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">VACATION</h5>
+      <p class="card-text">coconut water, pineapple, banana, mango</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="VACATION" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 26rem;">
+    <img src="file1.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">GREEK STALLION</h5>
+      <p class="card-text">kale, spinach, dates, chia seeds, almond milk, banana, cashews.</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="GREEK STALLION" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 26rem;">
+    <img src="file2.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">BERRY ACAI</h5>
+      <p class="card-text">acai, strawberry, blueberry, banana, coconut water</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="BERRY ACAI" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+  <br>
+
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col">
+    <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="file3.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">PEANUT BUTTER</h5>
+      <p class="card-text">peanut butter, banana, skim milk, chocolate protein, mountain honey</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="PEANUT BUTTER" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem; height: 26rem;">
+    <img src="file4.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">POPEYE SHAKE</h5>
+      <p class="card-text">banana, spinach, almond milk, almonds, vanilla protein, dates,</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="POPEYE SHAKE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="file5.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">PIÑA COLADA</h5>
+      <p class="card-text">coconut milk, banana, pineapple, coconut flakes, mountain honey,</p>
+      <p class="fw-bold">Rs.200.00</p>
+      <button class="btn add-to-cart" data-name="PIÑA COLADA" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://www.natalieshealth.com/wp-content/uploads/2022/01/Avocado-Smoothie-8259.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">Avocado Smoothei</h5>
+      <p class="card-text">Avocado, banana, milk, dates, mint, honey </p>
+      <p class="fw-bold">Rs.250.00</p>
+      <button class="btn add-to-cart" data-name="Avocado Smoothei" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <hr style="color: #5a4231; border: 2px groove rgb(46, 30, 10);">
+  <br>
+  <br>
+
+  <h2 style="text-align:center;font-family: papyrus;position:relative;bottom: 50px;font-size: 30px;">FRESH PRESSED JUICES</h2></b>
+<div class="container text-center">
+  <div class="row align-items-start">
+    <div class="col">
+      <div class="card" style="width: 18rem;height: 26rem;">
+  <img src="https://images.herzindagi.info/image/2020/Nov/orange-juice-for-health.jpg" class="card-img-top" height="190px" width="190px">
+  <div class="card-body">
+    <h5 class="card-title">FRESH ORANGE JUICE</h5>
+    <p class="card-text">Oranges, Water, Orange syrup, Sugar</p>
+    <p class="fw-bold">Rs.150.00</p>
+    <button class="btn add-to-cart" data-name="FRESH ORANGE JUICE" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+  </div>
+</div>
+    </div>
+
+
+    <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRakTR3UY5MGmTad6UfglJLoGgHDPNEFenr3g&s" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">V8</h5>
+      <p class="card-text">carrot, red apple, orange juice</p>
+      <p class="fw-bold">Rs.150.00</p>
+    <button class="btn add-to-cart" data-name="V8" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+     <img src="file8.WEBP" class="card-img-top" height="190px" width="190px">
+     <div class="card-body">
+       <h5 class="card-title">GREEN TEAM</h5>
+       <p class="card-text">cucumber, lime, ginger,  green apple</p>
+       <p class="fw-bold">Rs.150.00</p>
+    <button class="btn add-to-cart" data-name="GREEN TEAM" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+     </div>
+   </div>
+       </div>
+
+
+       <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="file9.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">DETOX POWER</h5>
+      <p class="card-text">celery, kale, green apple, spinach</p>
+      <p class="fw-bold">Rs.150.00</p>
+    <button class="btn add-to-cart" data-name="DETOX POWER" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+
+  <div class="container text-center">
+    <div class="row align-items-start">
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="file10.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">GINGER JACK</h5>
+      <p class="card-text">kale, red apple, celery, carrot, ginger</p>
+      <p class="fw-bold">Rs.150.00</p>
+      <button class="btn add-to-cart" data-name="GINGER JACK" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://cdn.loveandlemons.com/wp-content/uploads/2021/06/watermelon-juice.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">Watermellon juice</h5>
+      <p class="card-text">Watermellons, Water, Sugar, Pink salt, Ice</p>
+      <p class="fw-bold">Rs.150.00</p>
+      <button class="btn add-to-cart" data-name="Watermellon juice" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="https://cdn.healthyrecipes101.com/recipes/images/juices/easy-apple-cider-vinegar-pineapple-juice-recipe-cli9pnkwd001drc1b7bkba7zy.jpg" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">Pineapple juice</h5>
+      <p class="card-text">Pineapple, Water, Sugar, Pink salt, Ice</p>
+      <p class="fw-bold">Rs.150.00</p>
+      <button class="btn add-to-cart" data-name="Pineapple juice" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+
+
+      <div class="col">
+        <div class="card" style="width: 18rem;height: 26rem;">
+    <img src="file11.WEBP" class="card-img-top" height="190px" width="190px">
+    <div class="card-body">
+      <h5 class="card-title">GINGER SHOT</h5>
+      <p class="card-text">Ginger, Pudeena, Coriander, Lemon Grass</p>
+      <p class="fw-bold">Rs.150.00</p>
+      <button class="btn add-to-cart" data-name="GINGER SHOT" data-price="250" style="background-color: #5a4231;">Add to Cart</button>
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <br>
+
+  <footer class="footer">
+    <div class="footer-container">
+        <!-- Column 1: About -->
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p>Premium Coffee House has been serving the finest coffee since 2012. Enjoy our cozy ambiance, quality beverages, and delicious meals every day.</p>
+        </div>
+
+        <!-- Column 2: Contact -->
+        <div class="footer-column">
+            <h3>Contact Us</h3>
+            <p>Email: contact@premiumcoffee.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: Pune, India</p>
+        </div>
+
+        <!-- Column 3: Social Media -->
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <!-- Newsletter -->
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Enter your email" class="subscribe-input">
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>© 2025 Premium Coffee House. All Rights Reserved.</p>
+    </div>
+</footer>
+
+
+
+
+
+
+<!-- 🛒 Offcanvas Cart (Left Side) -->
+<div class="offcanvas offcanvas-start cart-bg" tabindex="-1" id="cartCanvas">
+  <div class="offcanvas-header">
+      <h5 class="offcanvas-title">🛒 Shopping Cart</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+      <ul id="cartItems" class="list-group"></ul>
+      <h5 class="mt-3">Total: Rs.<span id="cartTotal">0.00</span></h5>
+      <button class="btn btn-danger w-100 mt-2" onclick="showPaymentScanner()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- 📱 Payment Modal with QR Code -->
+<div class="modal fade" id="paymentModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Scan QR Code to Pay</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="qrcode"></div> <!-- QR Code will be generated here -->
+                <button class="btn btn-success mt-3" onclick="completePayment()">Make Payment</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<script>
+    let cart = [];
+    
+    // Add to Cart Functionality
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function() {
+            let name = this.getAttribute('data-name');
+            let price = parseFloat(this.getAttribute('data-price'));
+            cart.push({ name, price });
+
+            updateCartUI();
+        });
+    });
+
+    // Update Cart UI
+    function updateCartUI() {
+        let cartList = document.getElementById('cartItems');
+        let cartCount = document.getElementById('cartCount');
+        let cartTotal = document.getElementById('cartTotal');
+
+        cartList.innerHTML = "";
+        let total = 0;
+
+        cart.forEach((item, index) => {
+            let li = document.createElement('li');
+            li.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center');
+            li.innerHTML = `${item.name} - Rs.${item.price} 
+                <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">❌</button>`;
+            cartList.appendChild(li);
+            total += item.price;
+        });
+
+        cartTotal.textContent = total.toFixed(2);
+        cartCount.textContent = cart.length;
+    }
+
+    // Remove Items from Cart
+    function removeItem(index) {
+        cart.splice(index, 1);
+        updateCartUI();
+    }
+
+    // Show Payment Scanner (QR Code)
+    function showPaymentScanner() {
+        if (cart.length === 0) {
+            alert("Your cart is empty. Please add items before proceeding.");
+        } else {
+            let totalAmount = document.getElementById('cartTotal').textContent;
+            let qrData = `Payment for food order: Rs.${totalAmount}`;
+            
+            // Clear existing QR code and generate new one
+            document.getElementById('qrcode').innerHTML = "";
+            new QRCode(document.getElementById("qrcode"), {
+                text: qrData,
+                width: 200,
+                height: 200
+            });
+
+            // Show the payment modal
+            let paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
+            paymentModal.show();
+        }
+    }
+
+    // Complete Payment
+    function completePayment() {
+        alert("✅ Your payment was done successfully! 🎉");
+
+        cart = []; // Clear the cart after successful payment
+        updateCartUI(); // Refresh the cart UI
+
+        // Close the modal
+        let paymentModal = bootstrap.Modal.getInstance(document.getElementById('paymentModal'));
+        paymentModal.hide();
+    }
+</script>
+
+</body>
+</html>

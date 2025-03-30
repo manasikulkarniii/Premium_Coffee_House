@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+/* Navbar Styling */
+.navbar {
+    padding: 10px 20px;
+}
+
+/* Space between Logo & Home */
+.navbar-brand {
+    margin-right: 30px;
+}
+
+/* Navbar Links Styling */
+.navbar-nav .nav-item {
+    margin: 0 10px; /* Space between buttons */
+}
+
+/* Hover Effect for Navbar Links */
+.navbar-nav .nav-link {
+    position: relative;
+    font-weight: bold;
+    transition: all 0.3s ease-in-out;
+    padding: 8px 15px;
+}
+
+/* Underline Animation */
+.navbar-nav .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -3px;
+    width: 0;
+    height: 2px;
+    background-color: #6f4e37; /* Chocolate Brown */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.navbar-nav .nav-link:hover {
+    color: #6f4e37 !important;
+    transform: scale(1.1);
+    background: rgba(111, 78, 55, 0.2); /* Light Brown Tint */
+    border-radius: 5px;
+}
+
+.navbar-nav .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+}
+
+/* Dropdown Styling */
+/* Navbar Dropdown Styling */
+.navbar .dropdown-menu {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    background: rgb(186, 153, 109); /* Soft Yellow with Transparency */
+    backdrop-filter: blur(10px); /* Glassmorphism Effect */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease-in-out;
+    display: block;
+    visibility: hidden;
+}
+
+/* Show Dropdown on Hover */
+.navbar .nav-item.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Dropdown Hover Effect */
+.navbar .dropdown-menu .dropdown-item {
+    padding: 12px 18px;
+    transition: 0.3s ease-in-out;
+    border-radius: 5px;
+}
+
+/* Dropdown Item Hover - Fancy Glass Effect */
+.navbar .dropdown-menu .dropdown-item:hover {
+    background: rgba(111, 78, 55, 0.7); /* Chocolate Brown with Transparency */
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Search Button Styling */
+.navbar .btn-outline-success {
+    border-color: #6f4e37;
+    color: #6f4e37;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Search Button Hover Effect */
+.navbar .btn-outline-success:hover {
+    background: #6f4e37;
+    color: white;
+    border-color: #6f4e37;
+    transform: scale(1.05);
+}
+
+
+/* Styling for Carousel Caption */
+.carousel-caption {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.6); /* Dark Transparent Background */
+    padding: 15px 25px;
+    border-radius: 8px;
+    animation: fadeInUp 1s ease-in-out;
+}
+
+/* Animation - Fade In & Slide Up */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* Heading & Paragraph Styling */
+.carousel-caption h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.carousel-caption p {
+    font-size: 18px;
+}
+
+/* Story Container */
+.story-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 50px;
+    background-color: #FFF3CD; /* Light Coffee Theme Background */
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Text Styling */
+.text-content {
+    max-width: 50%;
+    text-align: justify;
+    font-size: 20px;
+    font-family: 'Poppins', sans-serif;
+    color: #4B382A; /* Dark Coffee Color */
+    animation: fadeInLeft 1s ease-in-out;
+    line-height: 1.6;
+}
+
+/* Heading Styling */
+.text-content h2 {
+    font-size: 35px;
+    font-family: 'Playfair Display', serif;
+    color: #6B3E26; /* Coffee Brown */
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+    border-bottom: 3px solid #D4A373; /* Light Brown Accent */
+    display: inline-block;
+    padding-bottom: 5px;
+}
+
+/* Highlighted Text */
+.highlight {
+    color: #D2691E; /* Dark Orange - Coffee Accent */
+    font-weight: bold;
+}
+
+/* Coffee-Themed Text */
+.coffee-text {
+    font-style: italic;
+    font-weight: 600;
+    color: #8B4513; /* Rich Coffee Color */
+}
+
+/* Image Floating Animation */
+.animated-coffee {
+    display: block;
+    animation: float 3s ease-in-out infinite, rotate 5s linear infinite;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Floating Animation */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+/* Rotation Animation */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(2deg);
+    }
+}
+
+/* Text Fade-in Animation */
+@keyframes fadeInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .story-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-content {
+        max-width: 100%;
+    }
+
+    .animated-coffee {
+        width: 80%;
+        height: auto;
+    }
+}
+
+/* Background Image Setup */
+.menu-section {
+    position: relative;
+    width: 100%;
+    height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.background-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.6); /* Darker effect for better readability */
+}
+
+/* Custom Card Styling */
+.custom-card {
+    width: 90%; /* Auto width for better spacing */
+    max-width: 320px; /* Limit max width */
+    background: rgba(255, 255, 255, 0.15); /* Transparent White */
+    backdrop-filter: blur(10px); /* Blur Effect for Glassmorphism */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+/* Card Image */
+.card-img-top {
+    height: 190px;
+    object-fit: cover;
+    border-radius: 15px 15px 0 0;
+}
+
+/* Card Hover Effects */
+.custom-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.3);
+}
+
+/* Card Title */
+.card-title {
+    font-size: 22px;
+    font-family: 'Playfair Display', serif;
+    color: #FEE715; /* Elegant Yellow */
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* Card Text */
+.card-text {
+    font-size: 16px;
+    font-family: 'Poppins', sans-serif;
+    color: #fff; /* White Text for Readability */
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #FEE715;
+    border: none;
+    color: #3B2F2F; /* Dark Coffee Brown */
+    font-weight: bold;
+    transition: background 0.3s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #FFD700; /* Lighter Golden on Hover */
+    color: #3B2F2F;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .custom-card {
+        width: 80%;
+        margin-bottom: 20px;
+    }
+}
+
+/* Newsletter Section */
+.newsletter-title {
+    font-family: 'Cursive', sans-serif;
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+}
+
+.newsletter-text {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Modal Styling */
+.modal-content {
+    border-radius: 10px;
+    padding: 20px;
+}
+
+/* Button Hover Effect */
+.btn-warning {
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-warning:hover {
+    background-color: #ffcc00;
+    transform: scale(1.05);
+}
+
+.modal-content {
+    background: url('https://images.unsplash.com/photo-1511920170033-f8396924c348'); /* Change the URL if needed */
+    background-size: cover;
+    background-position: center;
+    border-radius: 12px;
+    padding: 20px;
+    color: white; /* To ensure readability */
+}
+
+
+
+
+
+
+
+
+
+/* Footer Styling */
+.footer {
+    background: #2c2c2c;
+    color: white;
+    padding: 40px 0;
+    font-family: Arial, sans-serif;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    flex-wrap: wrap;
+}
+
+/* Footer Columns */
+.footer-column {
+    flex: 1;
+    margin: 15px;
+    min-width: 250px;
+}
+
+.footer-column h3 {
+    color: #ffcc00;
+    font-size: 20px;
+    margin-bottom: 15px;
+}
+
+.footer-column p {
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Social Icons */
+.social-icons a {
+    color: white;
+    font-size: 22px;
+    margin: 0 8px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffcc00;
+    transform: scale(1.2);
+}
+
+/* Newsletter Subscription */
+.subscribe-input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 8px;
+    border-radius: 5px;
+    border: none;
+    font-size: 14px;
+}
+
+.subscribe-btn {
+    width: 100%;
+    padding: 10px;
+    background-color: #ffcc00;
+    border: none;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+    transition: background 0.3s ease;
+}
+
+.subscribe-btn:hover {
+    background-color: #e6b800;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #444;
+    font-size: 13px;
+}
+
+
+
+
+</style>
+
+
+
+
+
+</head>
+<body>
+ 
+    <!-- Navigation-bar -->
+    <nav class="navbar navbar-expand-lg " style="background-color: #a3836c;">
+        <div class="container-fluid">
+          <img src="https://files.oaiusercontent.com/file-Ax7ApESRNurzgKaeE1XWWK?se=2025-03-22T14%3A09%3A20Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D53395aae-b82c-4b67-b206-ae6d100c7789.webp&sig=ia4KHOt3Y0r2rL4Fk9cR/dRoeZKAwl3AX4p3EzAEm6A%3D " height="50px">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link " aria-current="page" href="Homepage.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="Addtocartex.html">Menu</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Discover more
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="aboutexample.html">About us</a></li>
+                  <li><a class="dropdown-item" href="contactpage.html">Contact us</a></li>
+                  <li><a class="dropdown-item" href="gallerypage.html">Gallery</a></li>
+                </ul>
+              </li> 
+            </ul>
+
+
+            <div class="d-flex align-items-center">
+                <form class="d-flex me-2" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+    
+                <!-- 🛒 Cart Button -->
+                <button class="btn position-relative" data-bs-toggle="offcanvas" data-bs-target="#cartCanvas" style="background-color: #5a4231;">
+                    🛒 <span id="cartCount" class="badge bg-danger position-absolute top-0 start-100 translate-middle">0</span>
+                </button>
+            </div>
+          </div>
+        </div>    
+      </nav>
+
+<!-- carosule -->
+<div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="food1.webp" class="d-block w-100" height="635px">
+            <div class="carousel-caption">
+                <h2>Delicious & Freshly Brewed Coffee</h2>
+                <p>Enjoy the perfect taste of premium coffee.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="food2.webp" class="d-block w-100" height="635px">
+            <div class="carousel-caption">
+                <h2>Taste the Best Pastries</h2>
+                <p>Handcrafted with love & perfection.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="food3.webp" class="d-block w-100" height="635px">
+            <div class="carousel-caption">
+                <h2>Relax & Refresh at Our Café</h2>
+                <p>A perfect ambiance with the best flavors.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+
+<!-- image and text -->
+<div class="story-container">
+    <div class="text-content">
+        <h2>OUR STORY</h2>
+        <p>
+            Since 2012, we have been serving our customers with a simple motto: 
+            <span class="highlight">"You deserve more than the average café."</span> 
+            Whether you're enjoying breakfast or happy hour, we always guarantee a 
+            <span class="coffee-text">cozy and friendly ambiance, excellent customer service, quality food, and beverages all day.</span> 
+            We encourage <b>breakfast for dinner</b> and <b>mimosas all weekend long.</b>
+        </p>
+
+        <p>
+            We've quickly become a local favorite with our fantastic 
+            <span class="highlight">coffee, juices, smoothies, salads, sandwiches, pasta, wine, beers, and more!</span> 
+            We are open <b>seven days a week</b> and have become the <span class="coffee-text">perfect spot for your weekend brunch.</span> 
+            We focus on finding <b>gourmet ingredients, carefully curated and fresh.</b> 
+            These ingredients make every item on our menu <span class="highlight">taste fresh and flavorful.</span>
+        </p>
+    </div>
+    
+    <img src="https://png.pngtree.com/png-vector/20240623/ourmid/pngtree-flying-cup-of-coffee-with-splash-and-png-image_12831547.png" 
+         class="animated-coffee" height="500px">
+</div>
+
+
+<!-- Menu image -->
+<div class="menu-section">
+    <img src="https://png.pngtree.com/background/20230522/original/pngtree-coffee-shop-in-an-old-building-picture-image_2690132.jpg" class="background-image">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card custom-card">
+                    <img src="https://www.eatthis.com/wp-content/uploads/sites/4/2019/11/whole-grain-pancake-stack.jpg?quality=82&strip=1" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Breakfast</h5>
+                        <p class="card-text">Serving all day breakfast</p>
+                        <a href="Addtocartex.html" class="btn btn-primary">See Menu</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card custom-card">
+                    <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2014/01/grilled-sandwich-1.jpg" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Food</h5>
+                        <p class="card-text">Lunch and Dinner Menu</p>
+                        <a href="Addtocartex.html" class="btn btn-primary">See Menu</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 d-flex justify-content-center">
+                <div class="card custom-card">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGtlDheJZ5eLJMAzbiblEQWf7FrOIllGV4MA&s" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title">Bevarages</h5>
+                        <p class="card-text">Serving coffee and power drink</p>
+                        <a href="Addtocartex.html" class="btn btn-primary">See Menu</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- subscription -->
+<!-- Subscription Section -->
+<div class="container text-center my-5">
+    <h2 class="newsletter-title">Join Our Newsletter</h2>
+    <p class="newsletter-text">Get the latest updates and offers directly in your inbox!</p>
+    <button type="button" class="btn btn-warning btn-lg" data-bs-toggle="modal" data-bs-target="#subscribeModal">
+        Subscribe Now
+    </button>
+</div>
+
+<!-- Subscription Modal -->
+<div class="modal fade" id="subscribeModal" tabindex="-1" aria-labelledby="subscribeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="subscribeModalLabel">Monthly Subscription</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="subscriptionForm">
+                    <div class="mb-3">
+                        <label for="emailInput" class="form-label">Email Address</label>
+                        <input type="email" class="form-control" id="emailInput" placeholder="Enter your email">
+                        <small class="text-danger d-none" id="emailError">Please enter a valid email.</small>
+                    </div>
+                    <button type="submit" class="btn btn-warning w-100">Subscribe</button>
+                </form>
+                <p id="successMessage" class="text-success mt-3 text-center d-none">🎉 Subscription successful!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- footer -->
+<footer class="footer">
+    <div class="footer-container">
+        <!-- Column 1: About -->
+        <div class="footer-column">
+            <h3>About Us</h3>
+            <p>Premium Coffee House has been serving the finest coffee since 2012. Enjoy our cozy ambiance, quality beverages, and delicious meals every day.</p>
+        </div>
+
+        <!-- Column 2: Contact -->
+        <div class="footer-column">
+            <h3>Contact Us</h3>
+            <p>Email: contact@premiumcoffee.com</p>
+            <p>Phone: +91 98765 43210</p>
+            <p>Location: Pune, India</p>
+        </div>
+
+        <!-- Column 3: Social Media -->
+        <div class="footer-column">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            </div>
+
+            <!-- Newsletter -->
+            <h3>Subscribe</h3>
+            <input type="email" placeholder="Enter your email" class="subscribe-input">
+            <button class="subscribe-btn">Subscribe</button>
+        </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="footer-bottom">
+        <p>© 2025 Premium Coffee House. All Rights Reserved.</p>
+    </div>
+</footer>
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/your-kit-id.js" crossorigin="anonymous"></script>
+
+
+
+
+
+
+
+<script>
+    document.getElementById("subscriptionForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let emailInput = document.getElementById("emailInput");
+        let emailError = document.getElementById("emailError");
+        let successMessage = document.getElementById("successMessage");
+
+        // Email Validation
+        if (emailInput.value === "" || !emailInput.value.includes("@")) {
+            emailError.classList.remove("d-none");
+            return;
+        } else {
+            emailError.classList.add("d-none");
+        }
+
+        // Show Success Message
+        successMessage.classList.remove("d-none");
+
+        // Close modal after 2 seconds
+        setTimeout(() => {
+            let modal = bootstrap.Modal.getInstance(document.getElementById("subscribeModal"));
+            modal.hide();
+            successMessage.classList.add("d-none");
+            emailInput.value = ""; // Reset form
+        }, 2000);
+    });
+
+
+
+    
+    let cartCount = 0;
+    let totalPrice = 0;
+
+    function addToCart(item, price) {
+        cartCount++;
+        totalPrice += price;
+
+        document.getElementById("cart-count").innerText = cartCount;
+        document.getElementById("total-price").innerText = totalPrice.toFixed(2);
+
+        let cartItems = document.getElementById("cart-items");
+        let newItem = document.createElement("div");
+        newItem.classList.add("cart-item");
+        newItem.innerHTML = `<span>${item}</span><span>$${price.toFixed(2)}</span>`;
+        cartItems.appendChild(newItem);
+    }
+
+
+
+    
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
